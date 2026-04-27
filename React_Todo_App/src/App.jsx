@@ -43,6 +43,11 @@ function App(){
           type = "text"
           value = {inputValue}
           onChange = {e => setInputValue(e.target.value)}
+          onKeyDown = {e=>{
+            if(e.key==="Enter"){
+              addTodo()
+            }
+          }}
           placeholder = "Enter a todo...."
         />
         <button onClick={addTodo}> Add </button>
