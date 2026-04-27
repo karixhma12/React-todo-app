@@ -4,6 +4,8 @@ import {useState} from "react";
 function App(){
   const [todos,setTodos] = useState([])
   const [inputValue,setInputValue] = useState("");
+  const [editingId, setEditingId] = useState(null);
+  const [editText,setEditText] = useState("");
 
 
   function addTodo(){
