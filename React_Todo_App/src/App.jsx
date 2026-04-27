@@ -16,13 +16,17 @@ function App(){
     setInputValue("");
   }
 
+
   function toggleTodo(id){
-    {todos.map((todos)=>{
-      if(id===todos.id){
-        done : true
+    const newTodos = todos.map((todo)=>{
+      if(id ===todo.id){
+        return {...todo, done: !todo.done};
       }
-    })}
-    setTodos(todos);
+      else{
+        return todo;
+      }
+    })
+    setTodos(newTodos);
   }
 
   return(
@@ -36,10 +40,16 @@ function App(){
         />
         <button onClick={addTodo}> Add </button>
         <ul>
-          {todos.map((todo) => {
-            return <li key={todo.id}>
-              {todo.text}
-            </li>
+          {todos.map((todo)=>{
+            return(<li key={todo.id}>
+              <input 
+                type="checkbox"
+                checked={todo.done}
+                onChange = {()=>toggleTodo(todo.id)}/>
+              <span style={{textDecoration:todo.done?"line-through":"none"}}>
+                {todo.text}
+              </span>  
+            </li>)
           })}
         </ul>
     </div>
