@@ -16,6 +16,13 @@ function App(){
     setInputValue("");
   }
 
+  function deleteTodo(id){
+    const newTodos = todos.filter(todo=>{
+      return todo.id!==id
+    })
+    setTodos(newTodos);
+  }
+
 
   function toggleTodo(id){
     const newTodos = todos.map((todo)=>{
@@ -49,6 +56,7 @@ function App(){
               <span style={{textDecoration:todo.done?"line-through":"none"}}>
                 {todo.text}
               </span>  
+              <button onClick={()=>deleteTodo(todo.id)}> Delete Todo </button>
             </li>)
           })}
         </ul>
