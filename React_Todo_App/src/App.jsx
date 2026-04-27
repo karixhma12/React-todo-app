@@ -38,6 +38,23 @@ function App(){
     setTodos(newTodos);
   }
 
+  function saveTodo(){
+    const newTodos = todos.map(todo=>{
+      if(todo.id===editingId){
+        return {...todo,text : editText};
+      }
+      else{
+        return todo;
+      }
+    })
+    setTodos(newTodos);
+    setEditingId(null);
+  }
+
+  function cancelEdit(){
+    setEditingId(null);
+  }
+
   return(
     <div>
       <h1> Todo App </h1>
@@ -55,14 +72,37 @@ function App(){
         <button onClick={addTodo}> Add </button>
         <ul>
           {todos.map((todo)=>{
+
             return(<li key={todo.id}>
-              <input 
+              <>
+                <input 
                 type="checkbox"
                 checked={todo.done}
                 onChange = {()=>toggleTodo(todo.id)}/>
-              <span style={{textDecoration:todo.done?"line-through":"none"}}>
-                {todo.text}
-              </span>  
+              </>
+              {
+                editingId == todo.id ? (
+                  <>
+                    <input
+                    type = "text"
+                    value = {editText}
+                    onChange = {e=>{setEditText(e.target.value)}}
+                    />
+                   <button onClick={saveTodo}> Save </button>
+                   <button onClick={cancelEdit}> Cancel </button>
+                  </>
+                  
+                ) :
+                (
+                  <span style={{textDecoration: todo.done ? "line-through" : "none"}}>
+                    {todo.text}
+                  </span>
+                )
+
+              }
+
+              <button onClick={()=>{setEditText(todo.text), setEditingId(todo.id)}}> Edit Todo </button>
+
               <button onClick={()=>deleteTodo(todo.id)}> Delete Todo </button>
             </li>)
           })}
